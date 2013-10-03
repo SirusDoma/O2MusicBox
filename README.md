@@ -1,9 +1,9 @@
 JamPlayer
 =========
 
-JamPlayer Engine Source.
-Written in C#
+JamPlayer Engine Source.<br/>
+Written in C#<br/><br/>
 
-Dependencies:
-1. .NET Framework 2.0 / MONO (Compatible with Mono, Supported platform: Windows, Linux (Untested), Mac (Untested), Solaris (Untested)
+Dependencies:<br/>
+1. .NET Framework 2.0 / MONO (Compatible with Mono, Supported platform: Windows, Linux (Untested), Mac (Untested), Solaris (Untested)<br/>
 2. FMODEX Version 44420
