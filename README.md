@@ -1,4 +1,5 @@
 JamPlayer
 =========
 
-JamPlayer Engine Source. Written in C#
+JamPlayer Engine Source.
+Written in C#
