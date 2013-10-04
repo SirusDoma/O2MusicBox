@@ -95,8 +95,7 @@ namespace CXO2.Data
         // Calculate the position
         public void calculatePosition(float MEASURE_HEIGHT)
         {
-            // this.position = ((this.measure * MEASURE_HEIGHT) + (((MEASURE_HEIGHT / 192f) * (192f / this.beat)) * this.cell));
-            this.position = (((192 / this.beat) * this.cell) + (192 * this.measure));
+            this.position = (((192.0f / this.beat) * this.cell) + (192.0f * this.measure));
         }
         #endregion
 
