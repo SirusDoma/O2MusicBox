@@ -25,8 +25,6 @@ namespace CXO2.Core.Renderer
         static double _startTick = 0;
         static double _startPosition = 0;
         static double _currentPosition = 0;
-
-        static bool _isRunning = false;
         
         #endregion
 
@@ -37,6 +35,7 @@ namespace CXO2.Core.Renderer
             _chart              = chart;
             _mode               = mode;
             _bpm                = _chart.bpm;
+            _chart.dataEvent[mode].ResetPointer();
 
             _startTick          = 0;
             _startPosition      = 0;
@@ -49,7 +48,7 @@ namespace CXO2.Core.Renderer
         // Get running status
         public static bool getRunningState()
         {
-            return _isRunning;
+            return _chart.dataEvent[_mode].HasElementLeft;
         }
 
         // Update start tick
@@ -61,12 +60,6 @@ namespace CXO2.Core.Renderer
         // Update Chart Renderer
         public static void update()
         {
-            // Check Running Status
-            if (_chart.dataEvent[_mode].HasElementLeft)
-                _isRunning = true;
-            else
-                _isRunning = false;
-
             // Get Current Position
             long currentTick = DateTime.Now.Ticks;
             _currentPosition = (currentTick - _startTick) / 12500000D * _bpm + _startPosition;
