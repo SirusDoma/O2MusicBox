@@ -1,8 +1,0 @@
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\bin\Release\JamPlayer.exe
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\bin\Release\JamPlayer.pdb
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.formMain.resources
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.Properties.Resources.resources
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.csproj.GenerateResource.Cache
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.exe
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.pdb
-D:\Special Packed\Project\Projects C#\CygnusJam\Utilities\JamPlayer\JamPlayer\obj\Release\JamPlayer.csprojResolveAssemblyReference.cache
