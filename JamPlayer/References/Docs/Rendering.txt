@@ -1,0 +1,103 @@
+﻿=====================================================
+Rendering Logic Documentation
+Version 1.0
+
+Author: CXO2 a.k.a ChronoCross
+======================================================
+
+The rendering logic its quiet simple.
+This rendering method is different from Open2Jam logic.
+
+Before you reading this documentation, its highly recommended that you understand about Measure, Grid (Beat), Cell and BPM.
+It used for any Rhythm Game and Notecharting.
+
+Firstly, before we render whole the notes, we must assign the position each note.
+We can get the position each note by using this calculation:
+
+	note_position = (((192.0f / note_beat) * note_cell) + (192.0f * note_measure)) * hispeed;
+
+Explanation:
+1. 192			: The maximum notes (cell) in the measure, so 1 measure cant hold more than 192 notes (cell). (192 is used in O2Jam and BMS)
+2. note_beat	: The beat that used in measure, let say the note located in a measure with 1/16 Grid, that mean the beat is 16
+3. note_cell	: The cell location in a measure (zero index based), for example the 1st note in measure is cell 0, the 2nd note is cell 1 and so on.
+4. note_measure : The measure of note (zero index based), let say the note located in 1st measure that mean measure is 0, 2nd measure mean the measure is 1 and so on.
+5. hispeed		: The hispeed that used for rendering (e.g: 0.5x, 1.0x, 1.5x, 2.0x, 2.5x, 3.0x ... so on)
+
+This calculation will return the note position with 192 ( x hispeed) cell based.
+After we get all note_position for all notes, now we need to update the current position renderer.
+but before the rendering begin, get the current tick before the rendering begin (start_tick), I am using tick in this case:
+
+	start_tick = get_current_tick;
+
+after you get the start_tick, we need some variables in our renderer:
+
+bpm					: This is current bpm, if there any bpm change, the bpm value will stored here
+startposition		: This is start position renderer, value changed to bpm note_position if there are bpm change occurred
+currentposition		: The current position of renderer
+
+Now before we begin rendering, initialize those variables first:
+
+	bpm				= chart_bpm
+	startposition	= 0
+	currentposition = 0
+
+the bpm is assigned the default (starting) bpm of chart.
+and set other variables to 0.
+
+Now in rendering case, we need to do this as often as you can, here the calculation:
+
+	currentposition = ((get_current_tick - start_tick) / 12500000 * bpm + startposition) * hispeed
+
+As you can see, the currentposition isnt using delta system.
+it calculate the difference time since the rendering begin.
+
+Now I will explain where we got 12500000, the explanation quiet simple:
+
+	12500000 = ticks_per_minute / (((192 / 16) * currentTimeSig)
+
+Explanation:
+ticks_per_minute		: How much ticks per minute that we can do
+currentTimeSig			: The Current Time Signature, its like how much beat in a Measure.
+						  (for example, there are 4 beat in a measure with 1/16 grid), in this case we using hardcode, just make it 4.
+
+You can used any other system (not ticking system) as long the reproduced value from the calculation is comparable with this calculation.
+And now, how to get note_position for judgement? here the calculation:
+
+	position = note_position - currentposition
+
+so, the most accurate position (the perfect position to judge) is when the position value is 0.
+for autoplay notes cases (like BGM Note (Sample Note) and BPM Event) the note can be triggred with this logic:
+
+	if note_position <= currentposition
+		play_sample or do_bpm_change
+
+OR
+
+	position = note_position - currentposition
+	if position <= 0
+		play_sample or do_bpm_change
+
+How about Y coordinate? we can get Y coordinate of note by using this calculation:
+	
+	position = note_position - currentposition
+	note_y = viewport - position
+
+What is Viewport? Viewport is playable area of the rendering, in O2Jam, Viewport is 480px
+
+so in the visualization case, if the note_position equal with currentpositon that mean the note is located at red line judgement but..
+if the note_position less than currentposition it mean the note has passed the red line judgement.
+
+Now we can judge the notes and bpm change.
+But we are not finished yet, the calculation need to be updated when bpm change occurred, the logic will be like this:
+
+	if note_position <= currentposition
+		start_tick		+= (note_position - startposition) / bpm * 12500000
+		startposition	 = note_position
+		bpm				 = note_bpm_value
+
+and we need update the currentposition:
+
+	currentposition = ((get_current_tick - start_tick) / 12500000 * bpm + startposition) * hispeed
+
+There is it, now bpm change judged and updated properly.
+And now we are done for rendering.
