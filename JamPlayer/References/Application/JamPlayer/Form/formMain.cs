@@ -62,12 +62,9 @@ namespace JamPlayer
 
             // Initializing Sound System
             if (!SoundEngine.init())
-            {
                 // Something wrong with SoundSystem
                 // Check FMOD DLL and / or Version
-                MessageBox.Show("Failed to Initialize Sound System\nMake sure fmodex.dll is located in same directory", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
-            }
 
 
         }
@@ -100,20 +97,14 @@ namespace JamPlayer
 
             if (!ChartRenderer.getRunningState())
             {
-                if (!playing)
-                {
-                    // Stop
-                    renderTimer.Stop();
-                    return;
-                }
-
                 // Repeat Song
                 if (rdRepeatSong.Checked)
                 {
+                    // Items removed
                     if (playingID == -1)
                     {
                         // Reset
-                        btnPlay.Text = "Start";
+                        btnPlay.Text = "Play";
 
                         // reset played song
                         playedSongs.Clear();
@@ -128,13 +119,11 @@ namespace JamPlayer
                     // Stop
                     playing = false;
                     btnPlay.PerformClick();
-                    renderTimer.Stop();
-                    return;
                 }
                 else if (rdRepeatNone.Checked)
                 {
                     // Reset
-                    btnPlay.Text = "Start";
+                    btnPlay.Text = "Play";
 
                     // reset played song
                     playedSongs.Clear();
@@ -142,31 +131,17 @@ namespace JamPlayer
 
                     // Stop
                     playing = false;
-                    renderTimer.Stop();
-                    return;
                 }
 
+                // reset played song
                 if (playListView.Items.Count == playedSongs.Count)
-                {
-                    if (rdRepeatPlaylist.Checked)
-                    {
-                        // reset played song
-                        playedSongs.Clear();
-                        playingID = 0;
-
-                        // Stop
-                        playing = false;
-                        btnPlay.PerformClick();
-                        renderTimer.Stop();
-                        return;
-                    }
-                }
+                    playedSongs.Clear();
 
                 // Shuffle Mode
                 if (shuffleBox.Checked)
                 {
                     // Add current song to queue played song
-                    if (playListView.Items.Count != playedSongs.Count)
+                    if (playListView.Items.Count > playedSongs.Count)
                     {
                         if (playingID != -1)
                             playedSongs.Add(playingID);
@@ -174,7 +149,22 @@ namespace JamPlayer
                     // Queue playedsongs is full, clear it
                     else
                     {
-                        playedSongs.Clear();
+                        if (rdRepeatPlaylist.Checked)
+                        {
+                            playedSongs.Clear();
+                        }
+                        else
+                        {
+                            // Reset
+                            btnPlay.Text = "Play";
+
+                            // reset played song
+                            playedSongs.Clear();
+                            playingID = -1;
+
+                            // Stop
+                            playing = false;
+                        }
                     }
 
                     // Randomize the play
@@ -188,7 +178,17 @@ namespace JamPlayer
                     // Play it
                     playing = false;
                     btnPlay.PerformClick();
-                    renderTimer.Stop();
+                }
+                else if (rdRepeatPlaylist.Checked)
+                {
+                    playingID++;
+
+                    if (playListView.Items.Count == playingID)
+                        playingID = 0;
+                    
+                    // Stop
+                    playing = false;
+                    btnPlay.PerformClick();
                 }
             }
         }
@@ -316,7 +316,7 @@ namespace JamPlayer
                         mode = Chart.Modes.HX;
 
                     // Parse Chart
-                    if (!ChartParser.parse(ref chart, fileList[playListView.FocusedItem.Index], mode))
+                    if (!ChartParser.parse(ref chart, fileList[playingID], mode))
                     {
                         // remove corrupted / invalid chart
                         fileList.RemoveAt(playListView.FocusedItem.Index);
@@ -327,9 +327,9 @@ namespace JamPlayer
                         return;
                     }
 
-                    // Stop the timer to make sure
+                    // Make sure all stopped
                     renderTimer.Stop();
-
+                    
                     // Stop All playing Sound
                     SoundEngine.stopAllSound();
 
@@ -339,9 +339,6 @@ namespace JamPlayer
                     // Chart Renderer is playing
                     btnPlay.Text = "Stop";
                     playing = true;
-
-                    // Set playing ID
-                    playingID = playListView.FocusedItem.Index;
 
                     // Update Start Tick and Start the Chart
                     ChartRenderer.updateStartTick();
@@ -361,7 +358,7 @@ namespace JamPlayer
                     playingID = -1;
 
                     // Reset
-                    btnPlay.Text = "Start";
+                    btnPlay.Text = "Play";
 
                 }
             }

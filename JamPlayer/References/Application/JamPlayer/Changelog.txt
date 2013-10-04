@@ -1,6 +1,6 @@
 ﻿=================================================
 JamPlayer 
-Version 1.1
+Version 2.4
 
 http://www.cxo2.com
 http://www.cygnusjam.com
@@ -35,3 +35,7 @@ Initial public release
 - New UI			: Added Always on Top menu
 - New UI			: Added Minimize to Tray System
 - New UI			: Added About Form
+
+-- v2.4
+- Fixed Bugs		: Fixed playback bugs
+- New Implementation	: Added detailed error message at Sound Engine when exception occurred

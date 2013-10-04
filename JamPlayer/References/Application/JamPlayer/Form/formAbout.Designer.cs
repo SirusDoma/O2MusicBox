@@ -54,7 +54,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 39);
             this.label1.TabIndex = 1;
-            this.label1.Text = "JamPlayer\r\nVersion 2.2\r\nCXO2 a.k.a ChronoCross";
+            this.label1.Text = "JamPlayer\r\nVersion 2.4\r\nCXO2 a.k.a ChronoCross";
             // 
             // linkLabel1
             // 

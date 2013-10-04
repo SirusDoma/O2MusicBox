@@ -30,7 +30,7 @@ namespace CXO2.Core.SoundSystem
         {
             try
             {
-                _system = null;
+                _system = new FMOD.System();
                 result = FMOD.Factory.System_Create(ref _system);
                 result = _system.init(100, INITFLAGS.NORMAL, IntPtr.Zero);
 
@@ -39,6 +39,8 @@ namespace CXO2.Core.SoundSystem
             }
             catch (Exception)
             {
+                System.Windows.Forms.MessageBox.Show(FMOD.Error.String(result), 
+                    "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -278,8 +280,8 @@ namespace CXO2.Core.SoundSystem
                 _result = value;
 
                 // Should I put this?
-                //if (result != RESULT.OK)
-                //    Trace.WriteLine("Fatal error at SoundSystem: " + FMOD.Error.String(result), "FATAL ERROR");
+                if (result != RESULT.OK)
+                    System.Windows.Forms.MessageBox.Show(FMOD.Error.String(result), "Fatal Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
         }
         #endregion
