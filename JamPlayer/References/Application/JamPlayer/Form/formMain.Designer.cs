@@ -62,8 +62,10 @@
             this.mbClear = new System.Windows.Forms.MenuItem();
             this.mbView = new System.Windows.Forms.MenuItem();
             this.mbAlwaysOnTop = new System.Windows.Forms.MenuItem();
+            this.mbMinimizeToTray = new System.Windows.Forms.MenuItem();
             this.mbHelp = new System.Windows.Forms.MenuItem();
             this.mbAbout = new System.Windows.Forms.MenuItem();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupDifficulty.SuspendLayout();
             this.repeatGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -339,7 +341,8 @@
             // 
             this.mbView.Index = 2;
             this.mbView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.mbAlwaysOnTop});
+            this.mbAlwaysOnTop,
+            this.mbMinimizeToTray});
             this.mbView.Text = "View";
             // 
             // mbAlwaysOnTop
@@ -348,6 +351,12 @@
             this.mbAlwaysOnTop.Shortcut = System.Windows.Forms.Shortcut.AltUpArrow;
             this.mbAlwaysOnTop.Text = "Always on Top";
             this.mbAlwaysOnTop.Click += new System.EventHandler(this.mbAlwaysOnTop_Click);
+            // 
+            // mbMinimizeToTray
+            // 
+            this.mbMinimizeToTray.Index = 1;
+            this.mbMinimizeToTray.Text = "Minimize to Tray System";
+            this.mbMinimizeToTray.Click += new System.EventHandler(this.mbMinimizeToTray_Click);
             // 
             // mbHelp
             // 
@@ -361,6 +370,13 @@
             this.mbAbout.Index = 0;
             this.mbAbout.Text = "About";
             this.mbAbout.Click += new System.EventHandler(this.mbAbout_Click);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipText = "JamPlayer";
+            this.notifyIcon.Text = "JamPlayer";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // formMain
             // 
@@ -428,6 +444,8 @@
         private System.Windows.Forms.MenuItem mbAlwaysOnTop;
         private System.Windows.Forms.MenuItem mbHelp;
         private System.Windows.Forms.MenuItem mbAbout;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.MenuItem mbMinimizeToTray;
 
     }
 }

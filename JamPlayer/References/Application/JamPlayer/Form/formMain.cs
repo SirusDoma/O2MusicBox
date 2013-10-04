@@ -44,6 +44,7 @@ namespace JamPlayer
             Bitmap bmp = JamPlayer.Properties.Resources.O2jam;
             System.IntPtr icH = bmp.GetHicon();
             this.Icon = Icon.FromHandle(icH);
+            notifyIcon.Icon = this.Icon;
 
             // Used for rendering
             renderTimer.Tick += OnRender;
@@ -69,6 +70,22 @@ namespace JamPlayer
             }
 
 
+        }
+        #endregion
+
+        #region --- OnResize ---
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            if (mbMinimizeToTray.Checked)
+            {
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.ShowInTaskbar = false;
+                    notifyIcon.Visible = true;
+                }
+            }
         }
         #endregion
 
@@ -174,6 +191,16 @@ namespace JamPlayer
                     renderTimer.Stop();
                 }
             }
+        }
+        #endregion
+
+        #region --- NotifyIcon ---
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+
+            notifyIcon.Visible = false;
         }
         #endregion
 
@@ -541,6 +568,14 @@ namespace JamPlayer
             this.TopMost = !this.TopMost;
         }
 
+        private void mbMinimizeToTray_Click(object sender, EventArgs e)
+        {
+            mbMinimizeToTray.Checked = !mbMinimizeToTray.Checked;
+
+            if (!mbMinimizeToTray.Checked)
+                notifyIcon.Visible = false;
+        }
+
         #endregion
 
         #region --- Help ---
@@ -570,5 +605,7 @@ namespace JamPlayer
             Application.Exit();
         }
         #endregion
+
+        
     }
 }

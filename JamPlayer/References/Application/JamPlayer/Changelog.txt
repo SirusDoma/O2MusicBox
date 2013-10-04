@@ -22,7 +22,7 @@ Changelog
 -- v1.0
 Initial public release
 
--- v2.1
+-- v2.2
 - New Implementation	: Music playlist
 - New Implementation	: Shuffle mode (randomize play song in a playlist)
 - New Implementation	: Repeat mode (Playlist / Song)
@@ -33,4 +33,5 @@ Initial public release
 - New UI			: Added Load / Save Playlist Menu
 - New UI			: Added Clear menu to clear the list
 - New UI			: Added Always on Top menu
+- New UI			: Added Minimize to Tray System
 - New UI			: Added About Form
