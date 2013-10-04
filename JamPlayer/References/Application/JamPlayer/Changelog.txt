@@ -1,0 +1,36 @@
+﻿=================================================
+JamPlayer 
+Version 1.1
+
+http://www.cxo2.com
+http://www.cygnusjam.com
+=================================================
+
+Summary
+--------- 
+JamPlayer is simple player for playing O2Jam Chart Music file.
+This program is implementation of CXO2 (CygnusJam) Engine
+
+Dependency
+--------- 
+This program require following dependency must installed on your machine in order to run properly:
+1. .NET Framework 2.0 / Mono (GTK# Framework)
+2. FMODEX (Version: 444220) (Make sure fmodex.dll located in same directory as the program)
+
+Changelog
+--------- 
+-- v1.0
+Initial public release
+
+-- v2.1
+- New Implementation	: Music playlist
+- New Implementation	: Shuffle mode (randomize play song in a playlist)
+- New Implementation	: Repeat mode (Playlist / Song)
+- New UI			: Added Icon
+- New UI			: Added Menu bar
+- New UI			: Added Open / Add Files
+- New UI			: Added Add Folders menu to add all music in specified folder
+- New UI			: Added Load / Save Playlist Menu
+- New UI			: Added Clear menu to clear the list
+- New UI			: Added Always on Top menu
+- New UI			: Added About Form
