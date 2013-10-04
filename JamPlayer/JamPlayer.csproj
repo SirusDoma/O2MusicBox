@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>References\Samples\JamPlayer\O2Jam.ico</ApplicationIcon>
+    <ApplicationIcon>References\Application\JamPlayer\O2Jam.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.3.2.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e" />
@@ -55,21 +55,29 @@
     <Compile Include="CXO2\Data\Chart\Event.cs" />
     <Compile Include="CXO2\Data\Chart\O2Jam\OJN.cs" />
     <Compile Include="CXO2\Data\Utilities\XList.cs" />
-    <Compile Include="CXO2\IO\CompressionEngine.cs" />
     <Compile Include="CXO2\IO\StreamEngine.cs" />
     <Compile Include="CXO2\IO\StreamMemoryEngine.cs" />
     <Compile Include="CXO2\Parser\Chart\ChartParser.cs" />
     <Compile Include="CXO2\Parser\Chart\O2Jam\OJMParser.cs" />
     <Compile Include="CXO2\Parser\Chart\O2Jam\OJNParser.cs" />
-    <Compile Include="References\Samples\JamPlayer\Form\formMain.cs">
+    <Compile Include="References\Application\JamPlayer\Form\formAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="References\Samples\JamPlayer\Form\formMain.Designer.cs">
+    <Compile Include="References\Application\JamPlayer\Form\formAbout.Designer.cs">
+      <DependentUpon>formAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="References\Application\JamPlayer\Form\formMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="References\Application\JamPlayer\Form\formMain.Designer.cs">
       <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="References\Samples\JamPlayer\Program.cs" />
+    <Compile Include="References\Application\JamPlayer\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="References\Samples\JamPlayer\Form\formMain.resx">
+    <EmbeddedResource Include="References\Application\JamPlayer\Form\formAbout.resx">
+      <DependentUpon>formAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="References\Application\JamPlayer\Form\formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -80,6 +88,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -94,10 +103,12 @@
   <ItemGroup>
     <Folder Include="CXO2\Data\Chart\BMS\" />
     <Folder Include="CXO2\Parser\Chart\BMS\" />
-    <Folder Include="References\Docs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="References\Samples\JamPlayer\O2Jam.ico" />
+    <Content Include="References\Application\JamPlayer\Changelog.txt" />
+    <Content Include="References\Docs\Rendering.txt" />
+    <Content Include="References\Application\JamPlayer\O2Jam.ico" />
+    <None Include="Resources\O2jam.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
