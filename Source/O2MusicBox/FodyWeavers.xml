@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers>
+  <Costura LoadAtModuleInit="false" 
+           Unmanaged32Assemblies="openal32|libmp3lame" 
+           Unmanaged64Assemblies="openal32|libmp3lame"
+  />
+</Weavers>
