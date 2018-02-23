@@ -180,6 +180,7 @@ namespace O2MusicBox
                 sound.Dispose();
             }
 
+            buffer.Dispose();
             return data;
         }
     }
