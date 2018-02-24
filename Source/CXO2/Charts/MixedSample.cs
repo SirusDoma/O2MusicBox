@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-using Genode;
-using Genode.Audio;
+using Cgen;
+using Cgen.Audio;
 
 namespace CXO2.Charting
 {

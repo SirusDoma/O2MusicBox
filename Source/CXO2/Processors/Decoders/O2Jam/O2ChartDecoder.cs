@@ -7,8 +7,8 @@ using CXO2;
 using CXO2.Charting;
 using CXO2.Charting.O2Jam;
 
-using Genode;
-using Genode.Audio;
+using Cgen;
+using Cgen.Audio;
 
 namespace CXO2.Processors.O2Jam
 {
@@ -60,13 +60,13 @@ namespace CXO2.Processors.O2Jam
                         bool bgm = sample.Id >= 1000;
                         if (bgm)
                         {
-                            var music = new Music(sample.Payload);
+                            var stream = new MemoryStream(sample.Payload);
                             foreach (var ev in sampleEvents)
                             {
                                 var sound     = ev as Event.Sound;
                                 sound.Name    = sample.Name;
                                 sound.Payload = sample.Payload;
-                                sound.Sample  = new Music(music);
+                                sound.Sample  = new Music(stream);
                             }
                         }
                         else

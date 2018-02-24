@@ -176,10 +176,6 @@
       <Project>{50a4bbf2-fa74-45d9-b38f-c3b80847060f}</Project>
       <Name>CXO2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Genode\Genode.csproj">
-      <Project>{1cedd0e3-d69c-41cd-b807-935d991a5bb5}</Project>
-      <Name>Genode</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -187,8 +183,8 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Dependencies\Packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Dependencies\Packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\..\Dependencies\Packages\Fody.2.4.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Dependencies\Packages\Fody.2.4.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\Dependencies\Packages\Fody.2.4.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Dependencies\Packages\Fody.2.4.2\build\Fody.targets'))" />
   </Target>
   <Import Project="..\..\Dependencies\Packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('..\..\Dependencies\Packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
-  <Import Project="..\..\Dependencies\Packages\Fody.2.4.1\build\Fody.targets" Condition="Exists('..\..\Dependencies\Packages\Fody.2.4.1\build\Fody.targets')" />
+  <Import Project="..\..\Dependencies\Packages\Fody.2.4.2\build\Fody.targets" Condition="Exists('..\..\Dependencies\Packages\Fody.2.4.2\build\Fody.targets')" />
 </Project>

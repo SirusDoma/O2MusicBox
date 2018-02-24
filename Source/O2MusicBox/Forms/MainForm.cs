@@ -11,8 +11,8 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.IO;
 
-using Genode;
-using Genode.Audio;
+using Cgen;
+using Cgen.Audio;
 
 using CXO2;
 using CXO2.Charting;
@@ -271,12 +271,12 @@ namespace O2MusicBox
                 if (chart == null)
                     throw new Exception("Invalid / unsupported chart file.");
 
-                foreach (var ev in chart.Events)
-                {
-                    var sample = ev as Event.Sound;
-                    if (sample != null)
-                        sample.Payload = null;
-                }
+                //foreach (var ev in chart.Events)
+                //{
+                //    var sample = ev as Event.Sound;
+                //    if (sample != null)
+                //        sample.Payload = null;
+                //}
                 renderTask = playback.Renderer.RenderAsync(chart);
             }
             catch (Exception ex)
@@ -858,7 +858,7 @@ namespace O2MusicBox
                 {
                     playback.Track = 0;
                 }
-                else if (playback.Track < charts.Count)
+                else if (playback.Track < charts.Count - 1)
                 {
                     playback.Track++;
                 }

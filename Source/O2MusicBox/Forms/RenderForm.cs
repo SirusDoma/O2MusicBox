@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-using Genode;
-using Genode.Audio;
+using Cgen;
+using Cgen.Audio;
 
 using CXO2;
 using CXO2.Charting;

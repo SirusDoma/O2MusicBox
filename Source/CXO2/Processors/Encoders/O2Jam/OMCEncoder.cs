@@ -4,9 +4,9 @@ using System.Text;
 using System.Linq;
 using System.IO;
 
-using Genode;
-using Genode.Audio;
-using Genode.IO;
+using Cgen;
+using Cgen.Audio;
+using Cgen.IO;
 
 using CXO2;
 using CXO2.Charting.O2Jam;

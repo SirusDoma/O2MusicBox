@@ -229,7 +229,7 @@ namespace Lame
 		private Lame.Wrapper.LibMp3Lame _lame;
 
 		// Format of input wave data
-		private readonly Genode.Audio.WavFormat inputFormat;
+		private readonly Cgen.Audio.WavFormat inputFormat;
         private readonly int channels;
 		
 		// Output stream to write encoded data to
@@ -245,7 +245,7 @@ namespace Lame
 		/// <param name="format">Input Genode.Audio.WavFormat</param>
 		/// <param name="quality">LAME quality preset</param>
 		/// <param name="id3">Optional ID3 data block</param>
-		public LameMP3FileWriter(string outFileName, Genode.Audio.WavFormat format, Lame.LAMEPreset quality, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
+		public LameMP3FileWriter(string outFileName, Cgen.Audio.WavFormat format, Lame.LAMEPreset quality, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
 			: this(File.Create(outFileName), format, quality, channels, sampleRate, id3)
 		{
 			this.disposeOutput = true;
@@ -256,7 +256,7 @@ namespace Lame
 		/// <param name="format">Input Genode.Audio.WavFormat</param>
 		/// <param name="quality">LAME quality preset</param>
 		/// <param name="id3">Optional ID3 data block</param>
-		public LameMP3FileWriter(Stream outStream, Genode.Audio.WavFormat format, Lame.LAMEPreset quality, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
+		public LameMP3FileWriter(Stream outStream, Cgen.Audio.WavFormat format, Lame.LAMEPreset quality, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
 			: base()
 		{
 			// sanity check
@@ -264,7 +264,7 @@ namespace Lame
 				throw new ArgumentNullException("outStream");
 
 			// select encoder function that matches data format
-			if (format == Genode.Audio.WavFormat.PCM)
+			if (format == Cgen.Audio.WavFormat.PCM)
 			{
 				if (channels == 1)
 					_encode = encode_pcm_16_mono;
@@ -309,7 +309,7 @@ namespace Lame
 		/// <param name="format">Input Genode.Audio.WavFormat</param>
 		/// <param name="bitRate">Output bit rate in kbps</param>
 		/// <param name="id3">Optional ID3 data block</param>
-		public LameMP3FileWriter(string outFileName, Genode.Audio.WavFormat format, int bitRate, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
+		public LameMP3FileWriter(string outFileName, Cgen.Audio.WavFormat format, int bitRate, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
 			: this(File.Create(outFileName), format, bitRate, channels, sampleRate, id3)
 		{
 			this.disposeOutput = true;
@@ -320,7 +320,7 @@ namespace Lame
 		/// <param name="format">Input Genode.Audio.WavFormat</param>
 		/// <param name="bitRate">Output bit rate in kbps</param>
 		/// <param name="id3">Optional ID3 data block</param>
-		public LameMP3FileWriter(Stream outStream, Genode.Audio.WavFormat format, int bitRate, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
+		public LameMP3FileWriter(Stream outStream, Cgen.Audio.WavFormat format, int bitRate, int channels = 2, int sampleRate = 44100, ID3TagData id3 = null)
 			: base()
 		{
 			// sanity check
@@ -328,7 +328,7 @@ namespace Lame
 				throw new ArgumentNullException("outStream");
 
 			// select encoder function that matches data format
-			if (format == Genode.Audio.WavFormat.PCM)
+			if (format == Cgen.Audio.WavFormat.PCM)
 			{
 				if (channels == 1)
 					_encode = encode_pcm_16_mono;

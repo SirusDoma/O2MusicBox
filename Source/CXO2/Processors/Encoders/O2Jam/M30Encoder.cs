@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-using Genode;
-using Genode.Audio;
-using Genode.IO;
+using Cgen;
+using Cgen.Audio;
+using Cgen.IO;
 
 using CXO2;
 using CXO2.Charting;
@@ -41,7 +41,7 @@ namespace CXO2.Processors.O2Jam
 
                     var info = EncodeToOGG(payload);
                     sample.Payload = payload;
-                    sample.PCM     = (int)info.PCM;
+                    sample.PCM     = (int)(info.SampleCount * info.ChannelCount);
 
                     stream.Write(sample.Name.PadNull(32));
                     stream.Write(payload.Length);

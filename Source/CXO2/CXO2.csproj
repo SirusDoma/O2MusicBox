@@ -27,13 +27,81 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Genode\Genode.csproj" />
+    <Compile Remove="Dependencies\Cgen.Audio\Build\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Dependencies\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis\Properties\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\OpenTKSupport\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestApp\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestFiles\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestHarness\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\UnitTests\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\Encode Example\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder.Example\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder\Properties\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Source\Example\**" />
+    <Compile Remove="Dependencies\Cgen.Audio\Temp\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Build\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Dependencies\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis\Properties\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\OpenTKSupport\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestApp\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestFiles\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestHarness\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\UnitTests\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\Encode Example\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder.Example\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder\Properties\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Source\Example\**" />
+    <EmbeddedResource Remove="Dependencies\Cgen.Audio\Temp\**" />
+    <None Remove="Dependencies\Cgen.Audio\Build\**" />
+    <None Remove="Dependencies\Cgen.Audio\Dependencies\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis\Properties\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\OpenTKSupport\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestApp\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestFiles\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TestHarness\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\UnitTests\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\Encode Example\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder.Example\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\OggVorbisEncoder\Properties\**" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Example\**" />
+    <None Remove="Dependencies\Cgen.Audio\Temp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Dependencies\Cgen.Audio\.git" />
+    <None Remove="Dependencies\Cgen.Audio\.gitattributes" />
+    <None Remove="Dependencies\Cgen.Audio\.gitignore" />
+    <None Remove="Dependencies\Cgen.Audio\.gitmodules" />
+    <None Remove="Dependencies\Cgen.Audio\LICENSE" />
+    <None Remove="Dependencies\Cgen.Audio\README.md" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\.git" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\.gitignore" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\LICENSE" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\Makefile" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis.nuspec" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis.OpenTKSupport.nuspec" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\NVorbis\Makefile" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\publish.cmd" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\README" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\README.md" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\NVorbis\TODO" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\.git" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\.gitattributes" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\.gitignore" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\LICENSE" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\Dependencies\VorbisEncoder\README.md" />
+    <None Remove="Dependencies\Cgen.Audio\Source\Cgen.Audio\OpenTK.dll.config" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Charts\BMS\" />
     <Folder Include="Processors\Decoders\BMS\" />
     <Folder Include="Processors\Encoders\BMS\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
   </ItemGroup>
 
 </Project>

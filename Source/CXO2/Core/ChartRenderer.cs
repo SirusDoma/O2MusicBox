@@ -5,8 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 
-using Genode;
-using Genode.Audio;
+using Cgen;
+using Cgen.Audio;
 
 using CXO2;
 using CXO2.Charting;
@@ -354,8 +354,7 @@ namespace CXO2
                 var sounds = events.Select((ev) => ev as Event.Sound).Where((ev) => ev as Event.Sound != null);
                 foreach (var ev in sounds.GroupBy((ev) => ev?.Id).Select((group) => group.First()))
                 {
-                    var music = ev.Sample as Music;
-                    music?.Decoder.Dispose();
+                    ev.Dispose();
                 }
             }
         }

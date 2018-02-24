@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genode", "Source\Genode\Genode.csproj", "{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CXO2", "Source\CXO2\CXO2.csproj", "{50A4BBF2-FA74-45D9-B38F-C3B80847060F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5F04469-5937-4CAE-8E01-0BB8487AD49E}"
@@ -22,14 +20,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Debug|x64.ActiveCfg = Debug|x64
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Debug|x64.Build.0 = Debug|x64
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Debug|x86.ActiveCfg = Debug|x86
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Debug|x86.Build.0 = Debug|x86
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Release|x64.ActiveCfg = Release|x64
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Release|x64.Build.0 = Release|x64
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Release|x86.ActiveCfg = Release|x86
-		{1CEDD0E3-D69C-41CD-B807-935D991A5BB5}.Release|x86.Build.0 = Release|x86
 		{50A4BBF2-FA74-45D9-B38F-C3B80847060F}.Debug|x64.ActiveCfg = Debug|x64
 		{50A4BBF2-FA74-45D9-B38F-C3B80847060F}.Debug|x64.Build.0 = Debug|x64
 		{50A4BBF2-FA74-45D9-B38F-C3B80847060F}.Debug|x86.ActiveCfg = Debug|x86
