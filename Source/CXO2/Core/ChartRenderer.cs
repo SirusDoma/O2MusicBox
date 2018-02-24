@@ -46,7 +46,6 @@ namespace CXO2
 
         private Task task;
         private double startTick = 0D, bpmOffset = 0D, timeOffset = 0D, pausedOffset = 0D;
-        private Event[] events;
 
         public event EventHandler RenderStart;
         public event EventHandler Rendering;
@@ -155,7 +154,7 @@ namespace CXO2
         public ChartRenderer()
         {
         }
-        
+
         /// <summary>
         /// Initiate rendering process with the given <see cref="CXO2.Charting.Chart"/>.
         /// </summary>
@@ -178,20 +177,19 @@ namespace CXO2
 
             // Initialize start tick and events
             startTick = DateTime.Now.Ticks;
-            events    = Chart.Events;
 
             // Reset stats
-            Measure     = 0;
-            Beat        = 0;
-            Cell        = 0;
-            Elapsed     = TimeSpan.Zero;
-            Duration    = Chart.Duration;
-            BPM         = Chart.BPM;
+            Measure = 0;
+            Beat = 0;
+            Cell = 0;
+            Elapsed = TimeSpan.Zero;
+            Duration = Chart.Duration;
+            BPM = Chart.BPM;
             IsRendering = true;
-            IsDisposed  = false;
+            IsDisposed = false;
 
-            bpmOffset    = 0;
-            timeOffset   = 0;
+            bpmOffset = 0;
+            timeOffset = 0;
             pausedOffset = 0;
             RenderStart?.Invoke(this, EventArgs.Empty);
         }
@@ -232,7 +230,7 @@ namespace CXO2
 
             SoundSystem.Instance.Resume();
             startTick = DateTime.Now.Ticks;
-            IsPaused  = false;
+            IsPaused = false;
         }
 
         /// <summary>
@@ -244,7 +242,7 @@ namespace CXO2
             if (task != null)
                 await task;
         }
-        
+
         /// <summary>
         /// Update <see cref="ChartRenderer"/> instance to process pending rendering queue.
         /// </summary>
@@ -266,20 +264,27 @@ namespace CXO2
             // TODO: CONFIRM
             // In case rendering start off-sync when chart has so many bpm changes
             // Try to split the events between Time and Sound events and process them separately
-            foreach (var ev in events)
+            foreach (var ev in Chart.Events)
             {
                 double offset = Offset;
 
                 Measure = (int)(offset / 192f);
-                Beat    = (int)((offset % 192f) / (192f / 4f));
-                Cell    = (int)(offset % 192f);
+                Beat = (int)((offset % 192f) / (192f / 4f));
+                Cell = (int)(offset % 192f);
 
                 Elapsed = TimeSpan.FromSeconds(timeOffset + (((offset - bpmOffset) / (192f / 4f)) / BPM) * 60);
                 Elapsed = Elapsed > Duration ? Duration : Elapsed;
 
                 double latency = ev.Offset - offset;
-                if (ev.Judged || latency >= 50)
+                //Logger.Information((events[0].Offset - offset).ToString());
+                if (ev.Judged || latency > (192 * 2))
                     continue;
+
+                var sound = ev as Event.Sound;
+                if (sound != null && sound.Sample == null)
+                {
+                    Task.Run(() => sound.Preload());
+                }
 
                 if (ev.GetType() == typeof(Event.Time))
                 {
@@ -295,7 +300,7 @@ namespace CXO2
                             // Update bpm information
                             BPM = time.Value;
                             bpmOffset = time.Offset;
-                            
+
                             // Apply current offset with current bpm
                             offset = Offset;
                             Elapsed = TimeSpan.FromSeconds(timeOffset + (((offset - bpmOffset) / (192f / 4f)) / BPM) * 60);
@@ -307,8 +312,7 @@ namespace CXO2
                 }
                 else if (ev.GetType() == typeof(Event.Sound))
                 {
-                    var sound = ev as Event.Sound;
-                    if (latency <= 0)
+                    if (latency <= 0 && !ev.Judged)
                     {
                         if (sound.Signature != Event.SignatureType.Release)
                             sound.Play();
@@ -329,7 +333,7 @@ namespace CXO2
             }
         }
 
-        private void Stream()
+        async private void Stream()
         {
             do
             {
@@ -337,24 +341,31 @@ namespace CXO2
 
                 // TODO: Calculate how many ms it take to sleep to simulate 60fps
                 //       Necessary to reduce CPU utilization
-                Task.Delay(16);
+                await Task.Delay(16);
             }
             while (IsRendering);
 
             // Bingo, still same thread here
             SoundSystem.Instance.Stop();
+
+            Dispose();
         }
 
         public void Dispose()
         {
-            
             if (!IsDisposed)
             {
                 IsDisposed = true;
-                var sounds = events.Select((ev) => ev as Event.Sound).Where((ev) => ev as Event.Sound != null);
+                var sounds = Chart.Events.Select((ev) => ev as Event.Sound).Where((ev) => ev as Event.Sound != null);
                 foreach (var ev in sounds.GroupBy((ev) => ev?.Id).Select((group) => group.First()))
                 {
                     ev.Dispose();
+                }
+
+                var sources = SoundSystem.Instance.GetPlayingSources();
+                foreach (var source in sources)
+                {
+                    source.Dispose();
                 }
             }
         }

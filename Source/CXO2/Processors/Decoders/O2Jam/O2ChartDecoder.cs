@@ -26,22 +26,23 @@ namespace CXO2.Processors.O2Jam
 
         public override Chart Decode(int level)
         {
-            var diff   = (OJN.Difficulty)level;
-            var ojn    = OJNDecoder.Decode(Filename);
-            var chart  = new Chart(Filename) {
-                Title    = ojn.Title,
-                Artist   = ojn.Artist,
-                Pattern  = ojn.Pattern,
-                BPM      = ojn.BPM,
+            var diff = (OJN.Difficulty)level;
+            var ojn = OJNDecoder.Decode(Filename);
+            var chart = new Chart(Filename)
+            {
+                Title = ojn.Title,
+                Artist = ojn.Artist,
+                Pattern = ojn.Pattern,
+                BPM = ojn.BPM,
                 Duration = TimeSpan.FromSeconds(ojn.Duration[diff]),
 
                 ThumbnailData = ojn.Thumbnail,
-                CoverArtData  = ojn.CoverArt
+                CoverArtData = ojn.CoverArt
             };
 
             OnChartHeaderDecoded(Filename, chart);
 
-            OJM ojm    = OJMDecoder.Decode(Filename.Replace(Path.GetFileName(Filename), ojn.OJMFileName));
+            OJM ojm = OJMDecoder.Decode(Filename.Replace(Path.GetFileName(Filename), ojn.OJMFileName));
             var events = ojn.GetEvents(diff);
 
             // Load OJM Samples and assign to events
@@ -57,29 +58,40 @@ namespace CXO2.Processors.O2Jam
 
                     if (sampleEvents != null)
                     {
-                        bool bgm = sample.Id >= 1000;
-                        if (bgm)
+                        foreach (var ev in sampleEvents)
                         {
-                            var stream = new MemoryStream(sample.Payload);
-                            foreach (var ev in sampleEvents)
-                            {
-                                var sound     = ev as Event.Sound;
-                                sound.Name    = sample.Name;
-                                sound.Payload = sample.Payload;
-                                sound.Sample  = new Music(stream);
-                            }
+                            var sound = ev as Event.Sound;
+                            sound.Name = sample.Name;
+                            sound.Payload = sample.Payload;
+
+                            if (sound.Offset <= (192 * 5))
+                                sound.Preload();
                         }
-                        else
-                        {
-                            var buffer = new SoundBuffer(sample.Payload);
-                            foreach (var ev in sampleEvents)
-                            {
-                                var sound     = ev as Event.Sound;
-                                sound.Name    = sample.Name;
-                                sound.Payload = sample.Payload;
-                                sound.Sample  = new Sound(buffer);
-                            }
-                        }
+
+                        //bool bgm = sample.Id >= 1000;
+                        //if (bgm)
+                        //{
+                        //    //var music = new Music(sample.Payload);
+                        //    //var stream = new MemoryStream(sample.Payload);
+                        //    foreach (var ev in sampleEvents)
+                        //    {
+                        //        var sound     = ev as Event.Sound;
+                        //        sound.Name    = sample.Name;
+                        //        sound.Payload = sample.Payload;
+                        //        //sound.Sample  = new Music(stream);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    //var buffer = new SoundBuffer(sample.Payload);
+                        //    foreach (var ev in sampleEvents)
+                        //    {
+                        //        var sound     = ev as Event.Sound;
+                        //        sound.Name    = sample.Name;
+                        //        sound.Payload = sample.Payload;
+                        //        //sound.Sample  = new Sound(buffer);
+                        //    }
+                        //}
                     }
                 }
             }
@@ -90,17 +102,18 @@ namespace CXO2.Processors.O2Jam
 
         public override Chart DecodeHeader(int level)
         {
-            var diff  = (OJN.Difficulty)level;
-            var ojn   = OJNDecoder.DecodeHeader(Filename);
-            var chart = new Chart(Filename) {
-                Title    = ojn.Title,
-                Artist   = ojn.Artist,
-                Pattern  = ojn.Pattern,
-                BPM      = ojn.BPM,
+            var diff = (OJN.Difficulty)level;
+            var ojn = OJNDecoder.DecodeHeader(Filename);
+            var chart = new Chart(Filename)
+            {
+                Title = ojn.Title,
+                Artist = ojn.Artist,
+                Pattern = ojn.Pattern,
+                BPM = ojn.BPM,
                 Duration = TimeSpan.FromSeconds(ojn.Duration[diff]),
 
                 ThumbnailData = ojn.Thumbnail,
-                CoverArtData  = ojn.CoverArt
+                CoverArtData = ojn.CoverArt
             };
 
             OnChartHeaderDecoded(Filename, chart);

@@ -12,26 +12,26 @@ namespace CXO2.Charting
         public enum ChannelType : short
         {
             Measurement = 0,
-            BPM    = 1,
-            Note1  = 2,
-            Note2  = 3,
-            Note3  = 4,
-            Note4  = 5,
-            Note5  = 6,
-            Note6  = 7,
-            Note7  = 8,
-            Note8  = 9,
-            Note9  = 10,
+            BPM = 1,
+            Note1 = 2,
+            Note2 = 3,
+            Note3 = 4,
+            Note4 = 5,
+            Note5 = 6,
+            Note6 = 7,
+            Note7 = 8,
+            Note8 = 9,
+            Note9 = 10,
             Note10 = 11,
             BGM
         }
 
         public enum SignatureType
         {
-            Normal  = 0,
-            Hold    = 2,
+            Normal = 0,
+            Hold = 2,
             Release = 3,
-            BGM     = 4
+            BGM = 4
         }
 
         public int Tempo
@@ -89,21 +89,21 @@ namespace CXO2.Charting
 
         public Event()
         {
-            Measure   = 0;
-            Beat      = 0;
-            Cell      = 0;
-            Tempo     = 4;
-            Channel   = ChannelType.BGM;
+            Measure = 0;
+            Beat = 0;
+            Cell = 0;
+            Tempo = 4;
+            Channel = ChannelType.BGM;
             Signature = SignatureType.Normal;
         }
 
         public Event(Event data)
         {
-            Measure   = data.Measure;
-            Beat      = data.Beat;
-            Cell      = data.Cell;
-            Tempo     = data.Tempo;
-            Channel   = data.Channel;
+            Measure = data.Measure;
+            Beat = data.Beat;
+            Cell = data.Cell;
+            Tempo = data.Tempo;
+            Channel = data.Channel;
             Signature = data.Signature;
         }
 
@@ -116,7 +116,7 @@ namespace CXO2.Charting
         public Event(Event.ChannelType channel, Event.SignatureType flag)
             : this()
         {
-            Channel   = channel;
+            Channel = channel;
             Signature = flag;
         }
 
@@ -154,7 +154,8 @@ namespace CXO2.Charting
 
             public byte[] Payload
             {
-                get; set;
+                get;
+                set;
             }
 
             public SoundSource Sample
@@ -180,12 +181,12 @@ namespace CXO2.Charting
             public Sound(Event.Sound ev, TimeSpan timestamp)
                 : base(ev, timestamp)
             {
-                Id      = ev.Id;
-                Pair    = ev.Pair;
-                Volume  = ev.Volume;
-                Pan     = ev.Pan;
+                Id = ev.Id;
+                Pair = ev.Pair;
+                Volume = ev.Volume;
+                Pan = ev.Pan;
                 Payload = ev.Payload;
-                Sample  = ev.Sample;
+                Sample = ev.Sample;
             }
 
             public Sound(Event.ChannelType channel, Event.SignatureType flag)
@@ -193,19 +194,24 @@ namespace CXO2.Charting
             {
             }
 
-            public void Play()
+            public void Preload()
             {
                 if (Sample == null && Payload != null)
                 {
-                    Sample = new Music(Payload);
-                    SoundSystem.Instance.Play(Sample);
+                    //Sample = new Music(data: Payload);
+                    Sample = new Cgen.Audio.Sound(new SoundBuffer(Payload));
+                    Payload = null;
                 }
+            }
 
+            public void Play()
+            {
                 if (Sample != null)
                 {
                     SoundSystem.Instance.Play(Sample);
-                    //Sample.Volume = Volume;
-                    //Sample.Pan    = Pan;
+                    Payload = null;
+                    Sample.Volume = Volume;
+                    Sample.Pan    = Pan;
                 }
             }
 
