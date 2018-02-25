@@ -172,6 +172,10 @@
     <Content Include="Resources\no_image.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cgen.Audio\Source\Cgen.Audio\Cgen.Audio.csproj">
+      <Project>{3674a9fe-b494-413e-b5ea-f1983a3001f1}</Project>
+      <Name>Cgen.Audio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CXO2\CXO2.csproj">
       <Project>{50a4bbf2-fa74-45d9-b38f-c3b80847060f}</Project>
       <Name>CXO2</Name>

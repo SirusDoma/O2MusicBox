@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5F044
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2MusicBox", "Source\O2MusicBox\O2MusicBox.csproj", "{3C901A32-97B0-413E-A3A5-D32DB4F400A9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cgen.Audio", "Source\Cgen.Audio\Source\Cgen.Audio\Cgen.Audio.csproj", "{3674A9FE-B494-413E-B5EA-F1983A3001F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -36,6 +38,14 @@ Global
 		{3C901A32-97B0-413E-A3A5-D32DB4F400A9}.Release|x64.Build.0 = Release|x64
 		{3C901A32-97B0-413E-A3A5-D32DB4F400A9}.Release|x86.ActiveCfg = Release|x86
 		{3C901A32-97B0-413E-A3A5-D32DB4F400A9}.Release|x86.Build.0 = Release|x86
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Debug|x64.ActiveCfg = Debug|x64
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Debug|x64.Build.0 = Debug|x64
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Debug|x86.ActiveCfg = Debug|x86
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Debug|x86.Build.0 = Debug|x86
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Release|x64.ActiveCfg = Release|x64
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Release|x64.Build.0 = Release|x64
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Release|x86.ActiveCfg = Release|x86
+		{3674A9FE-B494-413E-B5EA-F1983A3001F1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
