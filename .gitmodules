@@ -1,11 +1,3 @@
-[submodule "Source/CXO2/Dependencies/Cgen.Audio/Source/Cgen.Audio/Dependencies/NVorbis"]
-	path = Source/CXO2/Dependencies/Cgen.Audio/Source/Cgen.Audio/Dependencies/NVorbis
-	url = https://github.com/ioctlLR/NVorbis.git
-[submodule "Source/Cgen.Audio/Dependencies/VorbisEncoder"]
-	path = Source/CXO2/Dependencies/Cgen.Audio/Source/CXO2/Dependencies/Cgen.Audio/Source/Cgen.Audio/Dependencies/VorbisEncoder
-	url = https://github.com/SteveLillis/.NET-Ogg-Vorbis-Encoder.git
-[submodule "Source/CXO2/Dependencies/Cgen.Audio"]
-
-	path = Source/CXO2/Dependencies/Cgen.Audio
-
+[submodule "Source/Cgen.Audio"]
+	path = Source/Cgen.Audio
 	url = https://github.com/SirusDoma/Cgen.Audio.git
