@@ -386,7 +386,7 @@ namespace O2MusicBox
         #region --- Utilities Controls --
         private void OnThumbnailBoxClick(object sender, EventArgs e)
         {
-            if (playback.Track > 0 && playback.Track < charts.Count)
+            if (playback.Track >= 0 && playback.Track < charts.Count)
             {
                 var chart = charts[playback.Track];
                 if (chart.CoverArtData != null && chart.CoverArtData.Length > 0)
