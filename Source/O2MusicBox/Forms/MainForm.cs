@@ -25,23 +25,30 @@ namespace O2MusicBox
     public partial class MainForm : Form
     {
         #region --- Private Fields ---
-        private PlaybackState playback;
-        private List<Chart> charts;
+        private PlaybackState playback = new PlaybackState();
+        private List<Chart> charts = new List<Chart>();
         private Task renderTask = new Task(() => { });
         #endregion
 
         #region --- Constructors ---
         public MainForm()
         {
-            InitializeComponent();
+            try
+            {
+                // Costura load assembly on demand (lazy load)
+                // So we initialize this earlier to prevent heavy load when we initialize first chart
+                InitializeComponent();
+                SoundSystem.Instance.Initialize();
 
-            // Costura load assembly on demand (lazy load)
-            // So we initialize this earlier to prevent heavy load when we initialize first chart
-            SoundSystem.Instance.Initialize();
-            SoundProcessorFactory.InstallEncoder<MP3Encoder>((stream, sampleRate, channel, own) => new MP3Encoder(stream, sampleRate, channel, own));
-
-            playback  = new PlaybackState();
-            charts = new List<Chart>();
+                SoundProcessorFactory.InstallEncoder<MP3Encoder>((stream, sampleRate, channel, own) => new MP3Encoder(stream, sampleRate, channel, own));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to initialize sound system.\nPlease make sure OpenAL is placed / installed properly or rerun the application once more.\n\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Application.Exit();
+                return;
+            }
         }
         #endregion
 
