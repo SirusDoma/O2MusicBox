@@ -64,7 +64,7 @@ namespace CXO2.Processors.O2Jam
                             sound.Name = sample.Name;
                             sound.Payload = sample.Payload;
 
-                            if (sound.Offset <= (192 * 5))
+                            if (sound.Offset <= (192 / 4))
                                 sound.Preload();
                         }
 

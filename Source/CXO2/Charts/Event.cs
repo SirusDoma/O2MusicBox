@@ -198,8 +198,10 @@ namespace CXO2.Charting
             {
                 if (Sample == null && Payload != null)
                 {
-                    //Sample = new Music(data: Payload);
-                    Sample = new Cgen.Audio.Sound(new SoundBuffer(Payload));
+                    if (Id >= 1000)
+                        Sample = new Music(Payload);
+                    else
+                        Sample = new Cgen.Audio.Sound(new SoundBuffer(Payload));
                     Payload = null;
                 }
             }
@@ -209,7 +211,6 @@ namespace CXO2.Charting
                 if (Sample != null)
                 {
                     SoundSystem.Instance.Play(Sample);
-                    Payload = null;
                     Sample.Volume = Volume;
                     Sample.Pan    = Pan;
                 }

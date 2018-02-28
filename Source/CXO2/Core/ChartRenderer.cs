@@ -52,14 +52,6 @@ namespace CXO2
         public event EventHandler RenderComplete;
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="ChartRenderer"/> is disposed.
-        /// </summary>
-        public bool IsDisposed
-        {
-            get; private set;
-        }
-
-        /// <summary>
         /// Gets a value indicates whether the <see cref="ChartRenderer"/> is rendering.
         /// </summary>
         public bool IsRendering
@@ -161,36 +153,29 @@ namespace CXO2
         /// <param name="chart"><see cref="Charting.Chart"/> to render.</param>
         public async void Render(Chart chart)
         {
-            if (task != null)
-            {
-                if (task.Status == TaskStatus.Running)
-                    await task;
-                Dispose();
-            }
+            // Wait task to complete and dispose current chart
+            if (task?.Status == TaskStatus.Running)
+                await task;
 
             // Validate chart
             Chart = chart;
             if (Chart == null || Chart.Events == null || Chart.Events.Length == 0)
-            {
                 throw new Exception("No events to be rendered.");
-            }
-
-            // Initialize start tick and events
-            startTick = DateTime.Now.Ticks;
 
             // Reset stats
-            Measure = 0;
-            Beat = 0;
-            Cell = 0;
-            Elapsed = TimeSpan.Zero;
-            Duration = Chart.Duration;
-            BPM = Chart.BPM;
+            Measure     = 0;
+            Beat        = 0;
+            Cell        = 0;
+            Elapsed     = TimeSpan.Zero;
+            Duration    = Chart.Duration;
+            BPM         = Chart.BPM;
             IsRendering = true;
-            IsDisposed = false;
 
-            bpmOffset = 0;
-            timeOffset = 0;
+            startTick    = DateTime.Now.Ticks;
+            bpmOffset    = 0;
+            timeOffset   = 0;
             pausedOffset = 0;
+
             RenderStart?.Invoke(this, EventArgs.Empty);
         }
 
@@ -250,16 +235,8 @@ namespace CXO2
         public void Update(double delta)
         {
             SoundSystem.Instance.Update();
-
-            if (!IsRendering || Chart == null || Chart.Events == null || Chart.Events.Length == 0)
-            {
-                IsRendering = false;
+            if (!IsRendering || IsPaused)
                 return;
-            }
-            else if (IsPaused)
-            {
-                return;
-            }
 
             // TODO: CONFIRM
             // In case rendering start off-sync when chart has so many bpm changes
@@ -276,19 +253,20 @@ namespace CXO2
                 Elapsed = Elapsed > Duration ? Duration : Elapsed;
 
                 double latency = ev.Offset - offset;
-                //Logger.Information((events[0].Offset - offset).ToString());
-                if (ev.Judged || latency > (192 * 2))
+
+                // Skip event
+                if (ev.Judged || latency > 192 / 4)
                     continue;
 
-                var sound = ev as Event.Sound;
-                if (sound != null && sound.Sample == null)
+                // Preload sample
+                if (ev is Event.Sound sample && sample.Payload != null)
                 {
-                    Task.Run(() => sound.Preload());
+                    Task.Run(() => sample.Preload());
+                    continue;
                 }
 
-                if (ev.GetType() == typeof(Event.Time))
+                if (ev is Event.Time time)
                 {
-                    var time = ev as Event.Time;
                     if (latency <= 0)
                     {
                         if (time.Channel == Event.ChannelType.BPM)
@@ -310,7 +288,7 @@ namespace CXO2
                         }
                     }
                 }
-                else if (ev.GetType() == typeof(Event.Sound))
+                else if (ev is Event.Sound sound)
                 {
                     if (latency <= 0 && !ev.Judged)
                     {
@@ -337,11 +315,12 @@ namespace CXO2
         {
             do
             {
-                Update(0);
+                // Prevent thread race
+                await Task.Run(() => Update(0));
 
                 // TODO: Calculate how many ms it take to sleep to simulate 60fps
                 //       Necessary to reduce CPU utilization
-                await Task.Delay(16);
+                await Task.Delay(100);
             }
             while (IsRendering);
 
@@ -353,21 +332,15 @@ namespace CXO2
 
         public void Dispose()
         {
-            if (!IsDisposed)
-            {
-                IsDisposed = true;
-                var sounds = Chart.Events.Select((ev) => ev as Event.Sound).Where((ev) => ev as Event.Sound != null);
-                foreach (var ev in sounds.GroupBy((ev) => ev?.Id).Select((group) => group.First()))
-                {
-                    ev.Dispose();
-                }
+            // Force to queue the playing sources
+            SoundSystem.Instance.Update();
+            var sources = SoundSystem.Instance.GetPlayingSources();
 
-                var sources = SoundSystem.Instance.GetPlayingSources();
-                foreach (var source in sources)
-                {
-                    source.Dispose();
-                }
-            }
+            foreach (var source in sources)
+                source.Dispose();
+
+            foreach (var ev in Chart.Events.Select((ev) => ev as Event.Sound))
+                ev?.Dispose();
         }
     }
 }
