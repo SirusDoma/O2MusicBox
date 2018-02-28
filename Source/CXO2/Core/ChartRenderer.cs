@@ -315,12 +315,14 @@ namespace CXO2
         {
             do
             {
-                // Prevent thread race
-                await Task.Run(() => Update(0));
+                // Simulate 60fps delta time (elapsed ms per frame)
+                double delta = 1000f / 60f;
 
-                // TODO: Calculate how many ms it take to sleep to simulate 60fps
-                //       Necessary to reduce CPU utilization
-                await Task.Delay(100);
+                // Prevent thread race by awaiting the update call
+                await Task.Run(() => Update(delta));
+
+                // Delay the current thread, necessary to reduce CPU utilization
+                await Task.Delay(TimeSpan.FromMilliseconds(delta));
             }
             while (IsRendering);
 
