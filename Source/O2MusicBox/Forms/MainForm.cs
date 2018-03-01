@@ -45,7 +45,7 @@ namespace O2MusicBox
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to initialize sound system.\nPlease make sure OpenAL is placed / installed properly or rerun the application once more.\n\n" + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 return;
             }
